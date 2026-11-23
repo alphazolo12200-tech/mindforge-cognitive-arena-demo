@@ -2,7 +2,7 @@
 
 **Eight short brain-training games for reasoning, memory, attention and planning. This free demo opens levels 1 to 3.**
 
-▶ **Play the demo:** https://YOUR-USERNAME.github.io/mindforge-cognitive-arena-demo/
+▶ **Play the demo:** https://alphazolo12200-tech.github.io/mindforge-cognitive-arena-demo/
 
 ---
 
