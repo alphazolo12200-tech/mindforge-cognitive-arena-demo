@@ -1,0 +1,16 @@
+MindForge: Cognitive Skills Arena (Demo Edition)
+Copyright (c) 2026 AlphaZolo. All rights reserved.
+
+1. Ownership. The demo, including its code, game design, text, artwork and sounds, is owned by AlphaZolo. No ownership rights are transferred to you.
+
+2. Permitted use. You may play the demo in your browser, or save a copy for your own personal, non-commercial evaluation.
+
+3. Restrictions. Without prior written permission from AlphaZolo you may not: (a) redistribute, re-upload, rehost or resell the demo; (b) modify the demo or remove or bypass its level limits; (c) decompile, reverse engineer or extract parts of it for use elsewhere; (d) use it to build, publish or sell a derived or competing product; (e) remove copyright notices.
+
+4. No warranty. The demo is provided "as is", without warranty of any kind, express or implied. To the extent permitted by law, AlphaZolo is not liable for any loss or damage arising from its use.
+
+5. Not a clinical tool. The demo is for entertainment and practice. It does not provide IQ scores, diagnoses or professional psychological assessments.
+
+6. Full version. The full version is sold separately under its own terms on itch.io and Gumroad.
+
+All rights not expressly granted are reserved.

@@ -1,0 +1,340 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>MindForge: Cognitive Skills Arena (Free Demo)</title>
+<meta name="description" content="Free demo of MindForge: eight short brain-training games for reasoning, memory, attention, planning and more. Levels 1 to 3 playable. Kids and teen/adult modes, no ads, no sign-up.">
+<meta name="theme-color" content="#1b1a3a">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns=%27http://www.w3.org/2000/svg%27 viewBox=%270 0 100 100%27%3E%3Ctext y=%27.9em%27 font-size=%2790%27%3E%F0%9F%A7%A0%3C/text%3E%3C/svg%3E">
+<style>
+:root{--d:#15143a;--bg:#1b1a3a;--s:#26244f;--s2:#35326f;--t:#f4f3ff;--m:#aeabdc;--a:#ffb703;--g:#2ec4b6;--r:#ff6b6b;--b:#6c8cff}
+*{box-sizing:border-box}
+body{margin:0;background:radial-gradient(1200px 600px at 80% -10%,#3a3680,transparent),var(--bg);color:var(--t);font:16px/1.5 "Trebuchet MS","Segoe UI",sans-serif;min-height:100vh}
+main{max-width:880px;margin:0 auto;padding:18px 16px 60px}
+button{font:inherit;color:inherit;cursor:pointer;border:0;border-radius:14px;background:var(--s2);padding:12px 16px;transition:transform .12s,background .12s}
+button:hover:not(:disabled){transform:translateY(-2px);background:#443f8f}
+button:focus-visible{outline:3px solid var(--a);outline-offset:2px}
+.top{display:flex;flex-wrap:wrap;gap:12px;align-items:center;justify-content:space-between}
+h1{margin:0;font-size:2rem;letter-spacing:-.5px}h1 small{display:block;font-size:.9rem;font-weight:400;color:var(--m);letter-spacing:0}
+.pill{background:var(--s);border-radius:99px;padding:6px 14px;font-weight:700}
+.seg button{border-radius:99px;background:var(--s);margin-right:6px}.seg .on{background:var(--a);color:#241a00;font-weight:700}
+.hero{display:grid;grid-template-columns:240px 1fr;gap:18px;margin:20px 0;background:var(--s);border-radius:22px;padding:18px;align-items:center}
+.hero h2{margin:0 0 4px}.hero p{margin:4px 0;color:var(--m)}
+.xpbar{height:10px;background:var(--d);border-radius:9px;overflow:hidden;margin:8px 0}.xpbar i{display:block;height:100%;background:linear-gradient(90deg,var(--g),var(--a))}
+.cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:14px}
+.card{background:var(--s);border-radius:20px;padding:16px;display:flex;flex-direction:column;gap:6px;text-align:left}
+.card .ic{font-size:2rem}.card b{font-size:1.15rem}.card span{color:var(--m);font-size:.9rem}
+.lv{display:flex;gap:3px;margin:4px 0}.lv i{flex:1;height:7px;border-radius:4px;background:var(--d)}.lv i.f{background:var(--g)}
+.card .go{background:var(--a);color:#241a00;font-weight:700;text-align:center}
+.card .sci{background:transparent;color:var(--m);padding:4px;font-size:.85rem;text-decoration:underline}
+.bar{display:flex;flex-wrap:wrap;gap:8px 12px;align-items:center;justify-content:space-between;margin-bottom:8px}#cmb:empty{display:none}.bar b{flex:1 1 auto;min-width:0}
+.prog{height:8px;background:var(--s);border-radius:9px;overflow:hidden}.prog i{display:block;height:100%;width:0;background:var(--g);transition:width .3s}
+#arena{background:var(--s);border-radius:22px;margin-top:14px;padding:22px 16px;min-height:380px;text-align:center;transition:box-shadow .2s}
+#arena.good{box-shadow:0 0 0 4px var(--g)}#arena.bad{box-shadow:0 0 0 4px var(--r)}
+.q{color:var(--m);margin:0 0 16px}
+.seq{display:flex;flex-wrap:wrap;gap:8px;justify-content:center;margin-bottom:22px}
+.seq span{min-width:56px;padding:14px 10px;border-radius:14px;background:var(--s2);font-size:1.5rem;font-weight:700}.seq .u{background:var(--a);color:#241a00}
+.opts{display:grid;grid-template-columns:repeat(auto-fit,minmax(110px,1fr));gap:10px;max-width:520px;margin:0 auto}
+.opts button{font-size:1.2rem;font-weight:700;padding:16px}
+.opts .ok{background:var(--g)!important;color:#05221f}.opts .no{background:var(--r)!important;color:#2a0505}
+.grid{display:grid;gap:10px;max-width:340px;margin:0 auto}
+.tile{aspect-ratio:1;background:var(--s2);border-radius:16px}.tile.on{background:var(--a)!important;box-shadow:0 0 24px var(--a)}.tile.bad{background:var(--r)!important}
+.word{font-size:4rem;font-weight:800;margin:16px 0}.tbar{height:6px;background:var(--d);border-radius:6px;max-width:520px;margin:0 auto 18px;overflow:hidden}
+.tbar i{display:block;height:100%;background:var(--r);animation:shrink linear forwards}@keyframes shrink{from{width:100%}to{width:0}}
+.big{font-size:5rem;font-weight:800;margin:10px 0 20px}
+.res h2{font-size:2rem;margin:6px 0}.res .sci{background:var(--d);border-radius:16px;padding:14px;text-align:left;color:var(--m);margin:16px 0}
+.row{display:flex;gap:10px;justify-content:center;flex-wrap:wrap}.row .go{background:var(--a);color:#241a00;font-weight:700}
+dialog{background:var(--s);color:var(--t);border:0;border-radius:20px;max-width:460px;padding:22px}dialog::backdrop{background:#000a}
+footer{margin-top:28px;color:var(--m);font-size:.85rem}footer button{background:transparent;text-decoration:underline;padding:4px 8px}
+.mini{display:grid;grid-template-columns:repeat(4,1fr);gap:3px;width:84px}.mini i{aspect-ratio:1;background:var(--d);border-radius:4px}.mini i.f{background:var(--a)}
+.tgt .mini{width:130px;margin:0 auto 18px}.facts{display:grid;gap:8px;max-width:440px;margin:0 auto 18px}.facts span{background:var(--s2);border-radius:12px;padding:10px 14px}
+body.k{--d:#ffd9a0;--bg:#fff1d0;--s:#fff;--s2:#ffe0a3;--t:#33265c;--m:#6f5f94;--a:#ff7a00;--g:#0fb5a3;--r:#ef476f;background:radial-gradient(1000px 500px at 80% -10%,#ffd08a,transparent),var(--bg);font-size:18px}
+body.k h1{font-size:2.3rem}body.k #arena{border:3px dashed var(--s2)}body.k button:hover:not(:disabled){background:#ffd07a}body.k .opts button,body.k .seq span{font-size:1.6rem}
+.pegs{display:flex;gap:10px;max-width:480px;margin:0 auto}.peg{position:relative;touch-action:none;flex:1;height:240px;display:flex;flex-direction:column;justify-content:flex-end;align-items:center;gap:3px;padding:8px 4px;background:var(--s2)}.peg::before{content:'';position:absolute;top:10px;bottom:0;left:50%;width:8px;margin-left:-4px;background:var(--d);border-radius:4px}.peg:hover:not(:disabled){transform:none}
+.peg i{display:block;position:relative;z-index:1;height:24px;background:var(--a);border-radius:12px}.peg i.lift{margin-bottom:auto;background:var(--g);box-shadow:0 0 14px var(--g)}.peg.sel{outline:3px solid var(--g)}
+#certbox{display:none;position:fixed;inset:0;z-index:99;background:#fff;color:#222;overflow:auto;padding:20px;font-family:Georgia,serif}#certbox .cc{max-width:700px;margin:20px auto;padding:30px;border:8px double #35326f;text-align:center}#certbox table{width:100%;border-collapse:collapse}#certbox td{border:1px solid #999;padding:8px}
+.lv i.lk{background:repeating-linear-gradient(45deg,var(--d),var(--d) 3px,transparent 3px,transparent 6px);opacity:.7}
+.demo{background:var(--s);border:2px dashed var(--a);border-radius:16px;padding:12px 16px;margin:14px 0;text-align:center}
+a.btn{display:inline-block;text-decoration:none;border-radius:14px;padding:10px 16px;background:var(--a);color:#241a00;font-weight:700;margin:4px}
+@media print{body>*:not(#certbox){display:none!important}#certbox{position:static;display:block!important}.np{display:none!important}}
+@media(max-width:640px){.hero{grid-template-columns:1fr}.word{font-size:3rem}}
+@media(prefers-reduced-motion:reduce){*{transition:none!important}.tbar i{animation-duration:.01s!important}}
+</style></head><body><main id="app"></main><dialog id="dlg"></dialog>
+<script>
+const TM=new Set(),later=(f,ms)=>{const id=window.setTimeout(()=>{TM.delete(id);f()},ms);TM.add(id);return id},clearAll=()=>{TM.forEach(clearTimeout);TM.clear()};
+const DEMO_MAX=3,URL_ITCH='https://alphazolozyro.itch.io/',URL_GUM='https://alphazolo.gumroad.com/';
+const links=()=>`<a class="btn" href="${URL_ITCH}" target="_blank" rel="noopener">Full version on itch.io</a><a class="btn" href="${URL_GUM}" target="_blank" rel="noopener">Full version on Gumroad</a>`;
+const upsell=()=>`<div class="sci" style="text-align:center"><b>Enjoying the demo?</b><br>The full MindForge opens levels 4 to 10 in all 8 games, plus printable certificates.<br>${links()}</div>`;
+const $=s=>document.querySelector(s),R=(a,b)=>a+Math.floor(Math.random()*(b-a+1)),pick=a=>a[R(0,a.length-1)];
+const shuf=a=>a.map(x=>[Math.random(),x]).sort((p,q)=>p[0]-q[0]).map(x=>x[1]);
+let S=null;try{S=JSON.parse(localStorage.getItem('mf26demo'))}catch(e){}
+S=S||{mode:'adult',xp:0,streak:0,last:'',log:[],g:{}};
+const save=()=>{try{localStorage.setItem('mf26demo',JSON.stringify(S))}catch(e){}};
+const G={
+ seq:{n:'Pattern Logic',ic:'🔷',sk:'Reasoning',tr:8,d:'Find the rule, predict the next number.',sci:'Inspired by number-series and Raven-style tasks used in research on fluid reasoning, the ability to spot rules in unfamiliar patterns. Practice reliably improves performance on this kind of puzzle. Evidence that it raises general IQ is limited, so treat your level as a skill score, not an IQ.'},
+ mem:{n:'Spark Memory',ic:'✨',sk:'Working memory',tr:5,d:'Watch the lights, repeat the order.',sci:'Modelled on the Corsi block-tapping task (Corsi, 1972), a classic measure of visuospatial working memory. Typical adults manage a span of about 5 to 7 items. Spans vary with sleep, stress and attention.'},
+ str:{n:'Colour Clash',ic:'🎨',sk:'Attention',tr:12,d:'Name the ink, ignore the word.',sci:'Based on the Stroop task (Stroop, 1935). Reading is automatic, so a mismatched word slows you down. This conflict is used to study selective attention and inhibitory control.'},
+ nb:{n:'Echo Letters',ic:'🔁',sk:'Focus and updating',tr:14,d:'Does this letter match the one n steps back?',sci:'The n-back task (Kirchner, 1958) is widely used in working-memory research. Studies often find gains on the trained task but weak transfer to other abilities, which is why MindForge reports skills and progress rather than promising IQ gains.'},
+ rot:{n:'Spin Shapes',ic:'🧩',sk:'Spatial',tr:8,d:'Which shape is the same, just turned?',sci:'Based on mental rotation research (Shepard and Metzler, 1971). People imagine turning an object, and response time grows with the angle. Spatial skills are linked to success in STEM subjects, and they respond to practice.'},
+ ded:{n:'Logic Lab',ic:'🕵️',sk:'Deduction',tr:8,d:'Combine clues to work out who is who.',sci:'A linear syllogism task (De Soto, 1965 and later work on transitive inference). You chain clues like A>B and B>C into one ordering. It exercises deductive reasoning and holding several facts in mind at once.'},
+ han:{n:'Tower Plan',ic:'🗼',sk:'Planning',tr:3,d:'Plan your moves to rebuild the tower.',sci:'The Tower of Hanoi (and the similar Tower of London) is a classic planning task in cognitive psychology. It needs sub-goals and thinking several moves ahead, and it is used to study executive function and problem solving.'},
+ odd:{n:'Odd One Out',ic:'🔤',sk:'Verbal logic',tr:10,d:'Spot the word that does not belong.',sci:'Odd-one-out and classification tasks draw on semantic categories and are common in verbal reasoning tests. Faster, more accurate grouping reflects how well you hold category rules in mind.'}
+};
+const COL={Red:'#ff5a5a',Blue:'#5b8cff',Green:'#3ddc84',Yellow:'#ffd23f',Purple:'#c77dff',Orange:'#ff9f45'};
+const KR=['Little Spark','Bright Explorer','Clever Fox','Super Thinker','Brain Hero'];const U=()=>kids()?'stars ⭐':'XP';const RANKS=[[0,'Curious Mind'],[150,'Sharp Thinker'],[500,'Strategist'],[1200,'Mastermind'],[2500,'Polymath']];
+const kids=()=>S.mode==='kids',tf=()=>kids()?1.6:1,eff=L=>kids()?Math.max(1,L-1):L;
+const st=k=>{const g=S.g[S.mode+k]||(S.g[S.mode+k]={l:1,best:0,p:0});if(g.l>DEMO_MAX)g.l=DEMO_MAX;return g};
+const rank=()=>{let r=0,n=null;RANKS.forEach((x,i)=>{if(S.xp>=x[0])r=i});n=RANKS[r+1];return{name:kids()?KR[r]:RANKS[r][1],pct:n?(S.xp-RANKS[r][0])/(n[0]-RANKS[r][0])*100:100,next:n?n[0]-S.xp:0}};
+const ymd=d=>new Date(d-d.getTimezoneOffset()*6e4).toISOString().slice(0,10),today=()=>ymd(new Date());
+const A=()=>$('#arena');let SID=0;
+
+function radar(){
+ const ks=Object.keys(G),c=110,rad=80;
+ const pt=(i,v)=>{const a=-Math.PI/2+i*2*Math.PI/ks.length;return[c+Math.cos(a)*rad*v,c+Math.sin(a)*rad*v]};
+ const poly=v=>ks.map((k,i)=>pt(i,v(k)).join(',')).join(' ');
+ return `<svg viewBox="-35 -5 290 230" role="img" aria-label="Your skill profile">
+ ${[.33,.66,1].map(r=>`<polygon points="${poly(()=>r)}" fill="none" stroke="#4b4891"/>`).join('')}
+ <polygon points="${poly(k=>st(k).l/10)}" fill="#2ec4b655" stroke="#2ec4b6" stroke-width="2"/>
+ ${ks.map((k,i)=>{const p=pt(i,1.28);return`<text x="${p[0]}" y="${p[1]}" fill="#aeabdc" font-size="10" text-anchor="middle">${G[k].sk}</text>`}).join('')}</svg>`;
+}
+function hub(){
+ SID++;stop();clearAll();document.body.classList.toggle('k',kids());const r=rank();
+ $('#app').innerHTML=`<div class="top"><h1>MindForge<small>${kids()?'Play, think and collect stars!':'Train reasoning, memory and attention'}</small></h1>
+ <div class="seg"><button class="${kids()?'on':''}" data-m="kids">Kids 6 to 12</button><button class="${kids()?'':'on'}" data-m="adult">Teen and Adult</button><button id="mu" aria-label="Sound on or off">${S.mute?'🔇':'🔊'}</button></div></div>
+ <div class="demo"><b>Free demo.</b> Levels 1 to 3 of every game are playable. Levels 4 to 10 are locked.<br>${links()}</div>
+ <section class="hero"><div>${radar()}</div><div><h2>${r.name}</h2>
+ <div class="xpbar"><i style="width:${r.pct}%"></i></div>
+ <p>${S.xp} ${U()} ${r.next?'· '+r.next+' '+U()+' to the next rank':'· top rank reached'}</p>
+ <p><span class="pill">🔥 ${S.streak}-day streak</span></p>
+ <p>${S.streak?'Play one session today to keep it alive.':'Finish one session to start your streak.'} ${kids()?'Get most answers right to level up. Take your time, you can do it!':'Each game adapts: 80% session accuracy moves you up a level, under 50% moves you down. Tip: number keys 1 to 4 pick answers.'}</p></div></section>
+ <section class="cards">${Object.keys(G).map(k=>{const g=st(k);return`<div class="card"><span class="ic">${G[k].ic}</span><b>${G[k].n}</b><span>${G[k].d}</span>
+ <div class="lv" title="Level ${g.l} (demo: levels 1 to 3)">${Array.from({length:10},(_,i)=>`<i class="${i<g.l?'f':i>=DEMO_MAX?'lk':''}"></i>`).join('')}</div>
+ <span>Level ${g.l} of 3 in demo · best ${g.best}% · ${g.p} sessions</span><span>🔒 Levels 4 to 10: full version</span>
+ <button class="go" data-p="${k}">Play</button><button class="sci" data-s="${k}">The science</button></div>`}).join('')}</section>
+ <footer>MindForge is a cognitive-skills practice game inspired by established research tasks. It is designed for entertainment, practice and self-reflection. Scores are game-performance indicators, not IQ scores, diagnostic results or standardized psychological assessments. Skills may improve with practice; transfer to broader abilities remains debated by researchers. Your progress is saved only on this device. MindForge has no ads, no accounts and no tracking.
+ <br><button id="csv">Export progress (CSV)</button><button id="ct">Certificate (full version)</button><button id="rst">Reset all data</button><br>MindForge v1.2 Demo Edition. © 2026 AlphaZolo. All rights reserved.</footer>`;
+ document.querySelectorAll('[data-m]').forEach(b=>b.onclick=()=>{S.mode=b.dataset.m;save();hub()});
+ document.querySelectorAll('[data-p]').forEach(b=>b.onclick=()=>play(b.dataset.p));
+ document.querySelectorAll('[data-s]').forEach(b=>b.onclick=()=>sci(b.dataset.s));
+ $('#csv').onclick=csv;$('#mu').onclick=()=>mu(0);$('#ct').onclick=lockedCert;$('#rst').onclick=()=>{if(confirm('Delete all progress on this device?')){S={mode:S.mode,xp:0,streak:0,last:'',log:[],g:{}};save();hub()}};
+}
+function lockedCert(){const d=$('#dlg');d.innerHTML=`<h3>Certificate</h3><p>Printable certificates are part of the full version.</p><p>${links()}</p><button onclick="this.closest('dialog').close()">Close</button>`;d.showModal()}
+function sci(k){const d=$('#dlg');d.innerHTML=`<h3>${G[k].ic} ${G[k].n}: the science</h3><p>${G[k].sci}</p><button onclick="this.closest('dialog').close()">Close</button>`;d.showModal()}
+function csv(){
+ const rows=['date,game,track,level,session_accuracy_percent'].concat(S.log.map(l=>[l.d,G[l.k].n,l.m,l.l,l.a].join(',')));
+ const a=document.createElement('a');a.href=URL.createObjectURL(new Blob([rows.join('\n')],{type:'text/csv'}));a.download='mindforge-progress.csv';a.click();
+}
+function play(k){
+ clearAll();const g=st(k),L=eff(g.l),my=++SID,ctx={};let i=0,ok=0,cnt=0,combo=0,xp=0;
+ $('#app').innerHTML=`<div class="bar"><button id="q">← Back</button><b>${G[k].ic} ${G[k].n}</b><span class="pill">Level ${g.l}</span><button id="mu">${S.mute?'🔇':'🔊'}</button><span id="cmb" class="pill"></span></div><div class="prog"><i id="pg"></i></div><div id="arena"></div>`;
+ $('#q').onclick=hub;$('#mu').onclick=()=>mu(g.l);pulse(g.l);
+ const next=()=>{
+  if(my!==SID)return;
+  if(i>=G[k].tr)return fin();
+  $('#pg').style.width=(i/G[k].tr*100)+'%';i++;A().className='';
+  T[k](L,ctx,res=>{
+   if(my!==SID)return;
+   if(res===null)return later(next,250);
+   cnt++;if(res){ok++;combo++;xp+=10*g.l+Math.min(combo,5)*2;sfx.ok(g.l,combo)}else{combo=0;sfx.no()}
+   A().className=res?'good':'bad';$('#cmb').textContent=combo>1?'🔥 x'+combo:'';
+   later(next,res?500:1000);
+  },tf());
+ };
+ function fin(){
+  const acc=cnt?Math.round(ok/cnt*100):0,old=g.l;
+  if(acc>=80)g.l=Math.min(DEMO_MAX,g.l+1);else if(acc<50)g.l=Math.max(1,g.l-1);
+  g.best=Math.max(g.best,acc);g.p++;S.xp+=xp;
+  const t=today();if(S.last!==t){const y=ymd(new Date(Date.now()-864e5));S.streak=S.last===y?S.streak+1:1;S.last=t}
+  S.log.push({d:t,k,m:S.mode,l:old,a:acc});save();stop();(g.l>old?sfx.up:sfx.end)();
+  const capped=acc>=80&&old>=DEMO_MAX,msg=capped?'Great run! You have reached the top of the demo (level '+DEMO_MAX+'). Levels 4 to 10 are in the full version.':g.l>old?'Level up! Now level '+g.l+'.':g.l<old?'Dropping to level '+g.l+' so it feels fair. You will be back.':'Holding at level '+g.l+'. '+(acc>=65?'One more strong run to level up.':'Keep going, consistency builds skill.');
+  $('#app').innerHTML=`<div class="res" style="text-align:center"><div class="big">${acc>=80?'🏆':acc>=50?'💪':'🌱'}</div><h2>${acc}% session accuracy</h2><p>+${xp} ${U()} · ${msg}</p>
+  <div class="sci"><b>Why this task?</b><br>${G[k].sci}</div>
+  <div class="row"><button class="go" id="again">Play again</button><button id="home">Home</button></div>${upsell()}</div>`;
+  $('#again').onclick=()=>play(k);$('#home').onclick=hub;
+ }
+ next();
+}
+let AC=null,bt=null;
+const ac=()=>{if(S.mute)return null;try{AC=AC||new(window.AudioContext||window.webkitAudioContext)();if(AC.state==='suspended')AC.resume();return AC}catch(e){return null}};
+function tone(f,d=.15,ty='sine',v=.15,at=0){const c=ac();if(!c)return;const t=c.currentTime+at,o=c.createOscillator(),g=c.createGain();o.type=ty;o.frequency.value=f;g.gain.setValueAtTime(v,t);g.gain.exponentialRampToValueAtTime(.001,t+d);o.connect(g);g.connect(c.destination);o.start(t);o.stop(t+d)}
+const NT=[262,294,330,392,440,523,587,659,784,880];
+const sfx={ok:(l,c)=>{const f=NT[Math.min(9,l-1+Math.min(c,3))];tone(f,.14,'triangle',.2);tone(f*1.5,.2,'triangle',.16,.09)},no:()=>{tone(150,.3,'sawtooth',.1);tone(105,.35,'sawtooth',.08,.12)},up:()=>NT.slice(0,6).forEach((f,i)=>tone(f*2,.22,'square',.08,i*.09)),end:()=>{tone(392,.2,'triangle',.15);tone(330,.3,'triangle',.15,.15)},tile:i=>tone(NT[i%10],.25,'sine',.2)};
+function stop(){clearInterval(bt);bt=null}
+function pulse(l){stop();if(S.mute)return;let n=0;const ms=60000/(kids()?70+l*6:80+l*10);
+ bt=setInterval(()=>{tone(kids()?90:60,.16,kids()?'triangle':'sine',kids()?.08:.2);
+  if(l>=4)tone(kids()?1200:1800,.04,'square',.025,ms/2000);
+  if(l>=7&&!kids())tone(n%2?98:65,.25,'sawtooth',.05);
+  if(l>=9&&!kids())tone(NT[(n*3)%10]*2,.1,'square',.025,ms/4000);n++},ms)}
+const mu=l=>{S.mute=!S.mute;save();stop();if(!S.mute&&l)pulse(l);$('#mu').textContent=S.mute?'🔇':'🔊'};
+function emo(L,done){
+ const E=shuf(['🐶','🐱','🐸','🍎','⭐','🚀','🐟','🌈']).slice(0,4),U=pick(L<3?['AB']:L<5?['AAB','ABB','ABC']:['ABCD','AABC','ABAC']);
+ const s=[...Array(7)].map((_,i)=>E[U.charCodeAt(i%U.length)-65]),ans=s[6];
+ A().innerHTML=`<p class="q">Which picture comes next?</p><div class="seq">${s.slice(0,6).map(x=>`<span>${x}</span>`).join('')}<span class="u">?</span></div><div class="opts">${shuf(E).map(v=>`<button data-v="${v}">${v}</button>`).join('')}</div>`;
+ A().querySelectorAll('.opts button').forEach(b=>b.onclick=()=>{const good=b.dataset.v===ans;lock();A().querySelectorAll('.opts button').forEach(x=>{if(x.dataset.v===ans)x.classList.add('ok')});if(!good)b.classList.add('no');done(good)});
+}
+const T={};
+function lock(){const a=A();if(a)a.querySelectorAll('button').forEach(b=>b.disabled=true)}
+T.seq=(L,c,done)=>{
+ if(kids()&&L<8)return emo(L,done);
+ const ty=L<3?0:L<5?pick([0,1]):L<7?pick([1,2,3]):pick([2,3,4]);let t=[];
+ if(ty==0){let a=R(1,9),d=R(2,2+L);for(let i=0;i<6;i++)t.push(a+i*d)}
+ if(ty==1){let a=R(1,3),r=L>5?3:2;for(let i=0;i<6;i++)t.push(a*r**i)}
+ if(ty==2){let a=R(1,9),x=R(2,5),y=R(6,9);for(let i=0;i<6;i++){t.push(a);a+=i%2?y:x}}
+ if(ty==3){t=[R(1,3),R(1,4)];while(t.length<6)t.push(t[t.length-1]+t[t.length-2])}
+ if(ty==4){let a=R(1,5),d=R(2,4),b=R(30,40),e=R(2,5);for(let i=0;i<6;i++)t.push(i%2?b-(i>>1)*e:a+(i>>1)*d)}
+ const ans=t[5],o=new Set([ans]);
+ while(o.size<4){const v=ans+pick([-1,1])*R(1,Math.max(3,Math.round(ans*.2)));if(v>0)o.add(v)}
+ A().innerHTML=`<p class="q">What comes next?</p><div class="seq">${t.slice(0,5).map(x=>`<span>${x}</span>`).join('')}<span class="u">?</span></div>
+ <div class="opts">${shuf([...o]).map(v=>`<button data-v="${v}">${v}</button>`).join('')}</div>`;
+ A().querySelectorAll('.opts button').forEach(b=>b.onclick=()=>{
+  const good=+b.dataset.v===ans;lock();
+  A().querySelectorAll('.opts button').forEach(x=>{if(+x.dataset.v===ans)x.classList.add('ok')});
+  if(!good)b.classList.add('no');done(good);
+ });
+};
+T.mem=(L,c,done,tf)=>{
+ const n=L<4?3:4,len=Math.min(2+L,9),seq=[];
+ while(seq.length<len){const x=R(0,n*n-1);if(seq[seq.length-1]!==x)seq.push(x)}
+ const a=A();a.innerHTML=`<p class="q" id="msg">Watch the sparks…</p><div class="grid" style="grid-template-columns:repeat(${n},1fr)">${Array.from({length:n*n},(_,i)=>`<button class="tile" data-i="${i}" disabled></button>`).join('')}</div>`;
+ const tl=[...a.querySelectorAll('.tile')],step=Math.round(700*tf);let pos=0,live=false;
+ const lit=(i,ms)=>{sfx.tile(i);tl[i]?.classList.add('on');later(()=>tl[i]?.classList.remove('on'),ms)};
+ seq.forEach((x,k)=>later(()=>lit(x,step*.7),800+k*step));
+ later(()=>{live=true;tl.forEach(b=>b.disabled=false);const m=a.querySelector('#msg');if(m)m.textContent='Your turn: repeat the order ('+len+' sparks)'},800+len*step);
+ tl.forEach(b=>b.onclick=()=>{
+  if(!live)return;const i=+b.dataset.i;
+  if(i===seq[pos]){lit(i,200);pos++;if(pos===len){live=false;done(true)}}
+  else{live=false;b.classList.add('bad');done(false)}
+ });
+};
+T.str=(L,c,done,tf)=>{
+ const pool=Object.keys(COL).slice(0,Math.min(3+(L>>1),6)),w=pick(pool);let ink=pick(pool);
+ if(L>1||Math.random()<.5)while(ink===w)ink=pick(pool);
+ const ms=Math.round(Math.max(1200,4200-L*280)*tf);
+ A().innerHTML=`<p class="q">Tap the colour of the ink, not the word</p><div class="word" style="color:${COL[ink]}">${w}</div>
+ <div class="tbar"><i style="animation-duration:${ms}ms"></i></div><div class="opts">${shuf(pool).map(p=>`<button data-c="${p}">${p}</button>`).join('')}</div>`;
+ let over=false;const tm=later(()=>{over=true;lock();A().querySelectorAll('.opts button').forEach(x=>{if(x.dataset.c===ink)x.classList.add('ok')});done(false)},ms);
+ A().querySelectorAll('.opts button').forEach(b=>b.onclick=()=>{
+  if(over)return;clearTimeout(tm);const good=b.dataset.c===ink;lock();
+  A().querySelectorAll('.opts button').forEach(x=>{if(x.dataset.c===ink)x.classList.add('ok')});
+  if(!good)b.classList.add('no');done(good);
+ });
+};
+T.nb=(L,c,done,tf)=>{
+ const n=L<4?1:L<7?2:3,P=[...'BCDFGKLM'.slice(0,L<4?5:7)];
+ c.s=c.s||[];const i=c.s.length;let x;
+ if(i>=n&&Math.random()<.4)x=c.s[i-n];else{do x=pick(P);while(i>=n&&x===c.s[i-n])}
+ c.s.push(x);
+ if(i<n){
+  A().innerHTML=`<p class="q">Remember this letter (${n} back)</p><div class="big">${x}</div>`;
+  return later(()=>done(null),Math.round(1300*tf));
+ }
+ const match=x===c.s[i-n],ms=Math.round(2600*tf);
+ A().innerHTML=`<p class="q">Same letter as ${n} step${n>1?'s':''} back?</p><div class="big">${x}</div><div class="tbar"><i style="animation-duration:${ms}ms"></i></div>
+ <div class="opts"><button data-y="1">Match</button><button data-y="0">No match</button></div>`;
+ let over=false;const tm=later(()=>{over=true;lock();done(false)},ms);
+ A().querySelectorAll('.opts button').forEach(b=>b.onclick=()=>{
+  if(over)return;clearTimeout(tm);const good=(b.dataset.y==='1')===match;lock();
+  b.classList.add(good?'ok':'no');done(good);
+ });
+};
+T.rot=(L,c,done)=>{
+ const k=Math.min(4+(L>>1),8),rp=([x,y])=>[-y,x],mr=([x,y])=>[-x,y];
+ const nm=p=>{const a=Math.min(...p.map(q=>q[0])),b=Math.min(...p.map(q=>q[1]));return p.map(q=>[q[0]-a,q[1]-b]).sort((u,v)=>u[0]-v[0]||u[1]-v[1])};
+ const key=p=>JSON.stringify(nm(p)),turn=(p,n)=>{for(let i=0;i<n;i++)p=p.map(rp);return p};
+ let base,m,ks;
+ for(;;){
+  base=[[R(0,3),R(0,3)]];
+  while(base.length<k){const q=pick(base),d=pick([[1,0],[-1,0],[0,1],[0,-1]]),n=[q[0]+d[0],q[1]+d[1]];
+   if(n[0]>=0&&n[0]<4&&n[1]>=0&&n[1]<4&&!base.some(a=>a[0]==n[0]&&a[1]==n[1]))base.push(n)}
+  ks=new Set([0,1,2,3].map(x=>key(turn(base,x))));m=base.map(mr);
+  const mk=new Set([0,1,2,3].map(x=>key(turn(m,x))));
+  if(mk.size===4&&![...mk].some(x=>ks.has(x)))break;
+ }
+ const sh=p=>{const s=new Set(nm(p).map(a=>a[0]+','+a[1]));return`<div class="mini">${Array.from({length:16},(_,i)=>`<i class="${s.has((i%4)+','+(i>>2))?'f':''}"></i>`).join('')}</div>`};
+ const opts=shuf([[turn(base,R(1,3)),1],...shuf([0,1,2,3]).slice(0,3).map(x=>[turn(m,x),0])]);
+ A().innerHTML=`<p class="q">Which one is the same shape, just turned? Mirror copies do not count.</p><div class="tgt">${sh(base)}</div><div class="opts">${opts.map(o=>`<button data-v="${o[1]}">${sh(o[0])}</button>`).join('')}</div>`;
+ A().querySelectorAll('.opts button').forEach(b=>b.onclick=()=>{
+  const good=b.dataset.v==='1';lock();A().querySelectorAll('.opts button').forEach(x=>{if(x.dataset.v==='1')x.classList.add('ok')});
+  if(!good)b.classList.add('no');done(good);
+ });
+};
+T.ded=(L,c,done)=>{
+ const pool=kids()?['🐱 Cat','🐶 Dog','🦊 Fox','🐼 Panda','🐸 Frog','🐰 Bunny']:['Ava','Ben','Cyrus','Dana','Eli','Farah'];
+ const n=Math.min(3+(L>>1),6),o=shuf(pool).slice(0,n),q=L<3?0:L<5?pick([0,1]):pick([0,1,2]),sx=[];
+ for(let i=0;i<n-1;i++)sx.push(L>3&&Math.random()<.5?`${o[i+1]} is shorter than ${o[i]}`:`${o[i]} is taller than ${o[i+1]}`);
+ const ans=q==0?o[0]:q==1?o[n-1]:o[1],txt=['Who is the tallest?','Who is the shortest?','Who is the second tallest?'][q];
+ const op=shuf([ans,...shuf(o.filter(x=>x!==ans)).slice(0,3)]);
+ A().innerHTML=`<p class="q">Use all the clues.</p><div class="facts">${shuf(sx).map(x=>`<span>${x}</span>`).join('')}</div><p><b>${txt}</b></p><div class="opts">${op.map(v=>`<button data-v="${v}">${v}</button>`).join('')}</div>`;
+ A().querySelectorAll('.opts button').forEach(b=>b.onclick=()=>{
+  const good=b.dataset.v===ans;lock();A().querySelectorAll('.opts button').forEach(x=>{if(x.dataset.v===ans)x.classList.add('ok')});
+  if(!good)b.classList.add('no');done(good);
+ });
+};
+T.han=(L,c,done)=>{
+ const n=Math.min(2+Math.ceil(L/3),5),opt=2**n-1,lim=opt+Math.ceil(opt*.4),P=[[...Array(n)].map((_,i)=>n-i),[],[]];
+ let sel=-1,mv=0,fin=false,down=-1,dragT=0;
+ const W=(d,x='')=>`<i${x} style="width:${30+d*14}%"></i>`;
+ const act=i=>{
+  if(fin)return;
+  if(sel<0){if(P[i].length){sel=i;sfx.tile(i)}}
+  else{if(sel!==i){const d=P[sel][P[sel].length-1],t=P[i][P[i].length-1];if(!t||d<t){P[i].push(P[sel].pop());mv++;sfx.tile(i+3)}else sfx.no()}sel=-1}
+  if(P[2].length===n){fin=true;draw();lock();return done(mv<=lim)}
+  if(mv>=lim){fin=true;draw();lock();return done(false)}
+  draw();
+ };
+ const draw=()=>{
+  A().innerHTML=`<p class="q"><b>${sel>=0?'Now tap the peg where you want to drop it':'Tap a peg to lift its top disc, then tap where to drop it. Dragging works too.'}</b><br>Move the whole tower to the right peg. A bigger disc never sits on a smaller one.<br>Moves: ${mv} · optimal: ${opt} · challenge limit: ${lim}</p><div class="pegs">${P.map((p,i)=>{const s=p.slice(),up=sel===i?s.pop():0;return`<button class="peg${sel===i?' sel':''}" data-i="${i}" aria-label="Peg ${i+1}">${up?W(up,' class="lift"'):''}${s.reverse().map(d=>W(d)).join('')}</button>`}).join('')}</div>`;
+  A().querySelectorAll('.peg').forEach(b=>{
+   b.onpointerdown=()=>{down=+b.dataset.i};
+   b.onpointerup=e=>{const t=document.elementFromPoint(e.clientX,e.clientY)?.closest('.peg');
+    if(t&&down>=0&&+t.dataset.i!==down&&!fin&&P[down].length){dragT=Date.now();sel=down;act(+t.dataset.i)}down=-1};
+   b.onclick=()=>{if(Date.now()-dragT<400)return;act(+b.dataset.i)};
+  });
+ };
+ draw();
+};
+const WG=[['fruit',['Apple','Mango','Grape','Peach','Pear']],['vegetables',['Carrot','Onion','Potato','Leek','Radish']],['mammals',['Tiger','Horse','Whale','Rabbit','Camel']],['birds',['Eagle','Parrot','Sparrow','Owl','Crow']],['tools',['Hammer','Saw','Drill','Chisel','Wrench']],['instruments',['Piano','Violin','Flute','Drum','Guitar']],['planets',['Mars','Venus','Saturn','Jupiter','Neptune']]];
+T.odd=(L,c,done,tf)=>{
+ let a,b;if(L<4)[a,b]=shuf(WG);else[a,b]=shuf(pick([[0,1],[2,3],[4,5]]).map(i=>WG[i]));
+ const odd=pick(b[1]),ws=shuf([...shuf(a[1]).slice(0,4),odd]),ms=Math.round(Math.max(3000,10000-L*650)*tf);
+ A().innerHTML=`<p class="q">Which word does not belong?</p><div class="tbar"><i style="animation-duration:${ms}ms"></i></div><div class="opts">${ws.map(w=>`<button data-v="${w}">${w}</button>`).join('')}</div>`;
+ const fb=()=>{const q=A().querySelector('.q');if(q)q.textContent=`The other four are ${a[0]}. ${odd} is not.`};
+ let over=false;const tm=later(()=>{over=true;lock();fb();done(false)},ms);
+ A().querySelectorAll('.opts button').forEach(x=>x.onclick=()=>{
+  if(over)return;clearTimeout(tm);const good=x.dataset.v===odd;lock();
+  A().querySelectorAll('.opts button').forEach(y=>{if(y.dataset.v===odd)y.classList.add('ok')});
+  if(!good)x.classList.add('no');fb();done(good);
+ });
+};
+function cert(){
+ const d=$('#dlg');
+ d.innerHTML=`<h3>Certificate</h3><p>Name to print on it:</p><input id="cn" maxlength="40" placeholder="Your name" style="font:inherit;padding:10px;border-radius:10px;border:0;width:100%"><p><button id="cg">Create certificate</button> <button id="cx">Cancel</button></p>`;
+ d.showModal();$('#cn').focus();
+ $('#cx').onclick=()=>d.close();
+ $('#cg').onclick=()=>{const nm=($('#cn').value||'Player').replace(/[<>&"]/g,'');d.close();showCert(nm)};
+}
+function mkpdf(nm,rk,lines){
+ const E=t=>String(t).replace(/[^\x20-\x7e]/g,'?').replace(/([\\()])/g,'\\$1');let c='';
+ const T=(x,y,z,t,f,al)=>{c+=`BT /${f} ${z} Tf ${al?Math.max(50,(595-t.length*z*(f=='F2'?.5:.45))/2):x} ${y} Td (${E(t)}) Tj ET\n`};
+ c+='2 w 40 40 515 762 re S 0.8 w 48 48 499 746 re S\n';
+ T(0,740,26,'MindForge Certificate of Practice','F2',1);T(0,690,14,'Awarded to','F1',1);T(0,650,30,nm,'F2',1);
+ T(0,610,13,`for cognitive skills practice. Rank: ${rk} (${S.xp} ${kids()?'stars':'XP'})`,'F1',1);
+ lines.forEach((t,i)=>T(90,550-i*30,13,t,'F1',0));
+ T(0,110,10,`Date ${today()}. Practice record only. This certificate is not an IQ score, diagnostic result or standardized psychological assessment.`,'F1',1);
+ const o=['<</Type/Catalog/Pages 2 0 R>>','<</Type/Pages/Kids[3 0 R]/Count 1>>','<</Type/Page/Parent 2 0 R/MediaBox[0 0 595 842]/Contents 4 0 R/Resources<</Font<</F1 5 0 R/F2 6 0 R>>>>>>',`<</Length ${c.length}>>\nstream\n${c}endstream`,'<</Type/Font/Subtype/Type1/BaseFont/Helvetica>>','<</Type/Font/Subtype/Type1/BaseFont/Helvetica-Bold>>'];
+ let out='%PDF-1.4\n';const off=[];o.forEach((x,i)=>{off.push(out.length);out+=`${i+1} 0 obj\n${x}\nendobj\n`});
+ const xr=out.length;out+=`xref\n0 ${o.length+1}\n0000000000 65535 f \n`+off.map(n=>String(n).padStart(10,'0')+' 00000 n \n').join('')+`trailer\n<</Size ${o.length+1}/Root 1 0 R>>\nstartxref\n${xr}\n%%EOF`;
+ return new Blob([out],{type:'application/pdf'});
+}
+function showCert(nm){
+ const rk=rank().name,rows=Object.keys(G).map(k=>`<tr><td>${G[k].sk} (${G[k].n})</td><td>Level ${st(k).l} of 10</td><td>Best ${st(k).best}% session accuracy</td></tr>`).join('');
+ const lines=Object.keys(G).map(k=>`${G[k].sk} (${G[k].n})   Level ${st(k).l} of 10   Best ${st(k).best}% session accuracy`);let b=$('#certbox');if(!b){b=document.createElement('div');b.id='certbox';document.body.appendChild(b)}
+ b.innerHTML=`<div class="np row"><button class="go" id="cd">Download PDF</button><button id="cp">Print</button><button id="cc">Close</button></div><div class="cc"><h1>MindForge Certificate of Practice</h1><p>Awarded to</p><h2 style="font-size:2rem">${nm}</h2><p>for cognitive skills practice. Rank: <b>${rk}</b> (${S.xp} ${kids()?'stars':'XP'}).</p><table>${rows}</table><p style="font-size:.85rem;color:#555">Date ${today()}. This certificate records practice progress only. It is not an IQ or clinical assessment.</p></div>`;
+ b.style.display='block';$('#cd').onclick=()=>{const a=document.createElement('a');a.href=URL.createObjectURL(mkpdf(nm,rk,lines));a.download='MindForge-certificate.pdf';document.body.appendChild(a);a.click();a.remove()};$('#cp').onclick=()=>window.print();$('#cc').onclick=()=>{b.style.display='none'};
+}
+document.addEventListener('keydown',e=>{
+ if(e.ctrlKey||e.metaKey||e.altKey)return;const d=$('#dlg');if(d&&d.open)return;
+ if(/INPUT|TEXTAREA/.test(document.activeElement.tagName))return;
+ const n=parseInt(e.key,10);if(!n)return;
+ const b=[...document.querySelectorAll('#arena .opts button:not(:disabled),#arena .peg:not(:disabled)')][n-1];if(b)b.click();
+});
+hub();
+</script></body></html>
